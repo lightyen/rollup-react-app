@@ -15,9 +15,9 @@ import injectProcessEnv from "rollup-plugin-inject-process-env"
 import html from "@rollup/plugin-html"
 import progress from "rollup-plugin-progress"
 import cleaner from "rollup-plugin-cleaner"
-import path from "path"
 
 // dev
+// import hot from "rollup-plugin-hot"
 import serve from "rollup-plugin-serve"
 import livereload from "rollup-plugin-livereload"
 
@@ -25,9 +25,8 @@ import livereload from "rollup-plugin-livereload"
 import copy from "rollup-plugin-copy"
 import { terser } from "rollup-plugin-terser"
 import visualizer from "rollup-plugin-visualizer"
-import sizes from "rollup-plugin-sizes"
+import filesize from "rollup-plugin-filesize"
 
-const cwd = process.cwd()
 const isProd = process.env.NODE_ENV === "production"
 
 const makeHtmlAttributes = attributes => {
@@ -80,14 +79,38 @@ const template = ({ attributes, files, meta, publicPath, title }) => {
 export default {
 	input: "src/index.tsx",
 	output: {
-		dir: path.resolve(cwd, "build"),
+		dir: "build",
 		format: "esm",
 		sourcemap: true,
 		entryFileNames: isProd ? "[name]-[hash].js" : "[name].js",
 		plugins: isProd ? [terser()] : [],
 	},
+	preserveEntrySignatures: true,
 	plugins: [
-		progress(),
+		// hot({
+		// 	enabled: !isProd,
+		// 	inMemory: true,
+		// 	port: 8080,
+		// 	reload: false,
+		// }),
+		...(isProd
+			? [
+					progress(),
+					filesize(),
+					visualizer({ open: true, template: "treemap" }),
+					copy({
+						targets: [{ src: "src/assets/favicon.ico", dest: "build" }],
+					}),
+			  ]
+			: [
+					serve({
+						open: true,
+						historyApiFallback: true,
+						contentBase: "./build",
+						favicon: "./src/assets/favicon.ico",
+					}),
+					livereload({ delay: 1000, watch: "build" }),
+			  ]),
 		alias({
 			entries: [{ find: /^~\/(.*)/, replacement: "./$1" }],
 			customResolver: nodeResolve({
@@ -106,7 +129,7 @@ export default {
 			extract: isProd,
 			minimize: isProd,
 			extensions: [".css"],
-			config: { path: path.resolve(cwd, "postcss.config.js") },
+			config: { path: "./postcss.config.js" },
 		}),
 		url({
 			include: ["**/*.woff", "**/*.woff2", "**/*.ttf", "**/*.otf", "**/*.eot"],
@@ -116,7 +139,7 @@ export default {
 		ts({
 			typescript,
 			transpiler: "babel",
-			cwd: path.resolve(cwd, "src"),
+			cwd: "./src",
 			exclude: "node_modules/**",
 		}),
 		babel({
@@ -136,23 +159,6 @@ export default {
 			},
 			meta: [{ charset: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1.0" }],
 		}),
-		cleaner({ targets: [path.resolve(cwd, "build")] }),
-		...(isProd
-			? [
-					sizes(),
-					visualizer({ open: true, template: "treemap" }),
-					copy({
-						targets: [{ src: "src/assets/favicon.ico", dest: "build" }],
-					}),
-			  ]
-			: [
-					serve({
-						open: true,
-						historyApiFallback: true,
-						contentBase: path.resolve(cwd, "build"),
-						favicon: path.resolve(cwd, "src/assets/favicon.ico"),
-					}),
-					livereload({ delay: 2000 }),
-			  ]),
+		cleaner({ targets: ["./build"] }),
 	],
 }
