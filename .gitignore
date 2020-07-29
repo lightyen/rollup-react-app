@@ -1,0 +1,16 @@
+node_modules
+test
+build
+app
+.cache
+.DS_Store
+.directory
+*.log
+*.pfx
+npm-debug.log
+npm-debug.log.*
+package-lock.json
+yarn.lock
+thumbs.db
+stat.json
+stats.html
