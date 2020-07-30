@@ -26,6 +26,7 @@ import { terser } from "rollup-plugin-terser"
 import visualizer from "rollup-plugin-visualizer"
 import filesize from "rollup-plugin-filesize"
 
+// eslint-disable-next-line no-undef
 const isProd = process.env.NODE_ENV === "production"
 import tsPaths from "rollup-plugin-ts-paths-resolve"
 
@@ -93,7 +94,7 @@ export default {
 		// 	port: 8080,
 		// 	reload: false,
 		// }),
-		tsPaths({ tsConfigPath: "./src/tsconfig.json" }),
+		tsPaths(),
 		nodeResolve(),
 		commonjs(),
 		json(),
@@ -112,7 +113,6 @@ export default {
 		ts({
 			typescript,
 			transpiler: "babel",
-			cwd: "./src",
 			exclude: "node_modules/**",
 		}),
 		babel({
@@ -122,6 +122,7 @@ export default {
 			exclude: "node_modules/**",
 		}),
 		injectProcessEnv({
+			// eslint-disable-next-line no-undef
 			NODE_ENV: JSON.stringify(process.env.NODE_ENV),
 		}),
 		html({
