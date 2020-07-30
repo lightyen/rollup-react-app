@@ -27,7 +27,7 @@ import visualizer from "rollup-plugin-visualizer"
 import filesize from "rollup-plugin-filesize"
 
 const isProd = process.env.NODE_ENV === "production"
-import tsPaths from "./rollup-plugin-ts-paths-resolve"
+import tsPaths from "rollup-plugin-ts-paths-resolve"
 
 const makeHtmlAttributes = attributes => {
 	if (!attributes) {
