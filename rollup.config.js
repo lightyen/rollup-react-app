@@ -6,7 +6,6 @@ import url from "@rollup/plugin-url"
 import nodeResolve from "@rollup/plugin-node-resolve"
 import commonjs from "@rollup/plugin-commonjs"
 import babel from "@rollup/plugin-babel"
-import alias from "@rollup/plugin-alias"
 
 import postcss from "rollup-plugin-postcss"
 import typescript from "typescript"
@@ -28,6 +27,7 @@ import visualizer from "rollup-plugin-visualizer"
 import filesize from "rollup-plugin-filesize"
 
 const isProd = process.env.NODE_ENV === "production"
+import tsPaths from "./rollup-plugin-ts-paths-resolve"
 
 const makeHtmlAttributes = attributes => {
 	if (!attributes) {
@@ -93,35 +93,8 @@ export default {
 		// 	port: 8080,
 		// 	reload: false,
 		// }),
-		...(isProd
-			? [
-					progress(),
-					filesize(),
-					visualizer({ open: true, template: "treemap" }),
-					copy({
-						targets: [{ src: "src/assets/favicon.ico", dest: "build" }],
-					}),
-			  ]
-			: [
-					serve({
-						open: true,
-						historyApiFallback: true,
-						contentBase: "./build",
-						favicon: "./src/assets/favicon.ico",
-					}),
-					livereload({ delay: 1000, watch: "build" }),
-			  ]),
-		alias({
-			entries: [{ find: /^~\/(.*)/, replacement: "./$1" }],
-			customResolver: nodeResolve({
-				browser: true,
-				extensions: [".js", ".jsx", ".ts", ".tsx"],
-			}),
-		}),
-		nodeResolve({
-			browser: true,
-			extensions: [".js", ".jsx", ".ts", ".tsx"],
-		}),
+		tsPaths({ tsConfigPath: "./src/tsconfig.json" }),
+		nodeResolve(),
 		commonjs(),
 		json(),
 		yaml(),
@@ -149,7 +122,7 @@ export default {
 			exclude: "node_modules/**",
 		}),
 		injectProcessEnv({
-			NODE_ENV: process.env.NODE_ENV,
+			NODE_ENV: JSON.stringify(process.env.NODE_ENV),
 		}),
 		html({
 			template,
@@ -160,5 +133,23 @@ export default {
 			meta: [{ charset: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1.0" }],
 		}),
 		cleaner({ targets: ["./build"] }),
+		...(isProd
+			? [
+					progress(),
+					filesize(),
+					visualizer({ open: false, template: "treemap" }),
+					copy({
+						targets: [{ src: "src/assets/favicon.ico", dest: "build" }],
+					}),
+			  ]
+			: [
+					serve({
+						open: true,
+						historyApiFallback: true,
+						contentBase: "./build",
+						favicon: "./src/assets/favicon.ico",
+					}),
+					livereload({ delay: 1000, watch: "build" }),
+			  ]),
 	],
 }

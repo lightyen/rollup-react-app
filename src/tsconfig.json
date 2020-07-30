@@ -7,7 +7,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "target": "esnext",
-    "lib": ["ESNext", "DOM", "DOM.Iterable", "WebWorker"],
+    "lib": ["esnext", "dom", "dom.iterable", "webworker"],
     "baseUrl": ".",
     "paths": {
       "~/*": ["./*"]
