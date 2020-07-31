@@ -15,7 +15,6 @@ import progress from "rollup-plugin-progress"
 import cleaner from "rollup-plugin-cleaner"
 
 // dev
-// import hot from "rollup-plugin-hot"
 import serve from "rollup-plugin-serve"
 import livereload from "rollup-plugin-livereload"
 
@@ -25,7 +24,6 @@ import { terser } from "rollup-plugin-terser"
 import visualizer from "rollup-plugin-visualizer"
 import filesize from "rollup-plugin-filesize"
 
-// eslint-disable-next-line no-undef
 const isProd = process.env.NODE_ENV === "production"
 import tsPathsResolve from "rollup-plugin-ts-paths-resolve"
 
