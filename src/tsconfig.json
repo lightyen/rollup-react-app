@@ -10,7 +10,8 @@
     "lib": ["esnext", "dom", "dom.iterable", "webworker"],
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./*"],
+      "mystyle": ["../node_modules/@emotion/styled"]
     }
   },
   "include": ["./**/*"]

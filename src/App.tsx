@@ -1,6 +1,6 @@
 import React from "react"
 import { Global, css } from "@emotion/core"
-import styled from "@emotion/styled"
+import styled from "mystyle"
 import { keyframes } from "@emotion/core"
 import tw from "twin.macro"
 
