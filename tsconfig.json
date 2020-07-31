@@ -10,6 +10,18 @@
     "removeComments": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "sourceMap": true
-  }
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "jsx": "preserve",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "esnext",
+    "lib": ["esnext", "dom", "dom.iterable", "webworker"],
+    "baseUrl": "./src",
+    "paths": {
+      "~/*": ["./*"]
+    }
+  },
+  "include": ["./**/*"]
 }
