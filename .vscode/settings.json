@@ -1,45 +1,27 @@
 {
-	"editor.formatOnSave": true,
-	"formatFiles.excludePattern": "node_modules,build,.gitignore,.editorconfig,.browserslistrc,yarn.lock",
-	"search.exclude": {
-		"**/build": true,
-		"**/node_modules": true
-	},
-	"typescript.tsdk": "node_modules/typescript/lib",
-	"npm.autoDetect": "off",
-	"typescript.tsc.autoDetect": "off",
-	"eslint.validate": [
-		"javascript",
-		"javascriptreact",
-		"typescript",
-		"typescriptreact"
-	],
-	"files.exclude": {
-		"**/.cache": true,
-		"**/node_modules": true,
-		"yarn.lock": true
-	},
-	"files.watcherExclude": {
-		"**/.cache": true,
-		"**/build": true
-	},
-	"css.validate": false,
-	"stylelint.config": {
-		"rules": {
-			"at-rule-no-unknown": [
-				true,
-				{
-					"ignoreAtRules": [
-						"tailwind",
-						"apply",
-						"variants",
-						"responsive",
-						"screen"
-					]
-				}
-			],
-			"declaration-block-trailing-semicolon": null,
-			"no-descending-specificity": null
-		}
-	}
+  "editor.formatOnSave": true,
+  "formatFiles.excludePattern": "node_modules,build,.gitignore,.editorconfig,.browserslistrc,yarn.lock",
+  "search.exclude": {
+    "**/build": true,
+    "**/node_modules": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "npm.autoDetect": "off",
+  "typescript.tsc.autoDetect": "off",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "files.exclude": {
+    "**/.cache": true,
+    "**/node_modules": true,
+    "yarn.lock": true
+  },
+  "files.watcherExclude": {
+    "**/.cache": true,
+    "**/build": true
+  },
+  "css.validate": false
 }

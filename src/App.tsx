@@ -1,13 +1,7 @@
-import React from "react"
-import { Global, css } from "@emotion/core"
-import styled from "@emotion/styled"
-import { keyframes } from "@emotion/core"
-import tw from "twin.macro"
-
-import logo from "~/assets/logo.svg"
+import { Global, keyframes } from "@emotion/react"
+import tw, { css, GlobalStyles, styled } from "twin.macro"
 import FiraCodeFont from "~/assets/FiraCode-Regular.woff2"
-
-import "tailwindcss/dist/base.css"
+import logo from "~/assets/logo.svg"
 
 const globalStyle = css`
 	@font-face {
@@ -69,7 +63,8 @@ const HomeLink = styled.a`
 
 export default () => {
 	return (
-		<React.StrictMode>
+		<>
+			<GlobalStyles />
 			<Global styles={globalStyle} />
 			<Home>
 				<Header>
@@ -80,6 +75,6 @@ export default () => {
 					</HomeLink>
 				</Header>
 			</Home>
-		</React.StrictMode>
+		</>
 	)
 }

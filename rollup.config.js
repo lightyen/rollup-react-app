@@ -7,8 +7,6 @@ import commonjs from "@rollup/plugin-commonjs"
 import babel from "@rollup/plugin-babel"
 
 import postcss from "rollup-plugin-postcss"
-import typescript from "typescript"
-import ts from "rollup-plugin-ts"
 import injectProcessEnv from "rollup-plugin-inject-process-env"
 import html from "@rollup/plugin-html"
 import progress from "rollup-plugin-progress"
@@ -106,15 +104,10 @@ export default {
 			limit: 8192,
 		}),
 		image(),
-		ts({
-			typescript,
-			transpiler: "babel",
-			exclude: "node_modules/**",
-		}),
 		babel({
 			babelHelpers: "runtime",
 			skipPreflightCheck: true,
-			extensions: [".js", ".jsx"],
+			extensions: [".js", ".jsx", ".ts", ".tsx"],
 			exclude: "node_modules/**",
 		}),
 		injectProcessEnv({
