@@ -23,6 +23,7 @@ import filesize from "rollup-plugin-filesize"
 
 const isProd = process.env.NODE_ENV === "production"
 import tsPathsResolve from "rollup-plugin-ts-paths-resolve"
+import statics from "rollup-plugin-static-files"
 
 const makeHtmlAttributes = attributes => {
 	if (!attributes) {
@@ -77,7 +78,8 @@ export default {
 		dir: "build",
 		format: "esm",
 		sourcemap: true,
-		entryFileNames: isProd ? "[name]-[hash].js" : "[name].js",
+		entryFileNames: "[name].[hash].js",
+		assetFileNames: "[name].[hash][extname]",
 		plugins: isProd ? [terser()] : [],
 	},
 	preserveEntrySignatures: true,
@@ -107,13 +109,8 @@ export default {
 			// eslint-disable-next-line no-undef
 			NODE_ENV: JSON.stringify(process.env.NODE_ENV),
 		}),
-		html({
-			template,
-			title: "React App",
-			attributes: {
-				link: { name: "rel", content: "stylesheet" },
-			},
-			meta: [{ charset: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1.0" }],
+		statics({
+			include: ["./public"],
 		}),
 		cleaner({ targets: ["./build"] }),
 		...(isProd
@@ -132,7 +129,7 @@ export default {
 						contentBase: "./build",
 						favicon: "./src/assets/favicon.ico",
 					}),
-					livereload({ delay: 1000, watch: "build" }),
+					livereload({ delay: 100, watch: "build" }),
 			  ]),
 	],
 }
