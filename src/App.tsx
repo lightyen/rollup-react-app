@@ -1,13 +1,8 @@
 import { Global, keyframes } from "@emotion/react"
 import tw, { css, GlobalStyles } from "twin.macro"
-import FiraCodeFont from "~/assets/FiraCode-Regular.woff2"
 import logo from "~/assets/logo.svg"
 
 const globalStyle = css`
-	@font-face {
-		font-family: Fira Code;
-		src: local("Fira Code"), url(${FiraCodeFont}) format("woff2");
-	}
 	body {
 		margin: 0;
 		overflow: hidden;

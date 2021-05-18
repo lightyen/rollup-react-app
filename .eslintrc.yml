@@ -11,9 +11,6 @@ extends:
   - "plugin:prettier/recommended"
 parserOptions:
   project: ./tsconfig.json
-ignorePatterns:
-  - rollup.config.js
-  - postcss.config.js
 rules:
   spaced-comment: error
   no-var: error
