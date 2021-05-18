@@ -7,7 +7,6 @@ import commonjs from "@rollup/plugin-commonjs"
 import babel from "@rollup/plugin-babel"
 
 import injectProcessEnv from "rollup-plugin-inject-process-env"
-import html from "@rollup/plugin-html"
 import progress from "rollup-plugin-progress"
 import cleaner from "rollup-plugin-cleaner"
 
