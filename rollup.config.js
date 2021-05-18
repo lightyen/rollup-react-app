@@ -6,7 +6,6 @@ import url from "@rollup/plugin-url"
 import commonjs from "@rollup/plugin-commonjs"
 import babel from "@rollup/plugin-babel"
 
-import postcss from "rollup-plugin-postcss"
 import injectProcessEnv from "rollup-plugin-inject-process-env"
 import html from "@rollup/plugin-html"
 import progress from "rollup-plugin-progress"
@@ -93,12 +92,6 @@ export default {
 		commonjs(),
 		json(),
 		yaml(),
-		postcss({
-			extract: isProd,
-			minimize: isProd,
-			extensions: [".css"],
-			config: { path: "./postcss.config.js" },
-		}),
 		url({
 			include: ["**/*.woff", "**/*.woff2", "**/*.ttf", "**/*.otf", "**/*.eot"],
 			limit: 8192,

@@ -1,5 +1,5 @@
 import { Global, keyframes } from "@emotion/react"
-import tw, { css, GlobalStyles, styled } from "twin.macro"
+import tw, { css, GlobalStyles } from "twin.macro"
 import FiraCodeFont from "~/assets/FiraCode-Regular.woff2"
 import logo from "~/assets/logo.svg"
 
@@ -30,51 +30,32 @@ const spin = keyframes`
 	}
 `
 
-const Home = styled.div`
-	height: 100%;
-	display: grid;
-	place-items: center;
-`
-
-const Header = styled.header`
-	font-size: calc(10px + 2vmin);
-	${tw`flex-auto flex flex-col items-center justify-center`}
-`
-
-const Logo = styled.img`
-	height: 40vmin;
-	animation: ${spin} 60s linear infinite;
-	${tw`pointer-events-none`}
-`
-
-const Code = styled.code`
-	${tw`text-indigo-500`}
-`
-
-const HomeLink = styled.a`
-	transition: color 200ms ease;
-	${tw`no-underline py-3`}
-	:focus,:hover {
-		color: #02dddd;
-		${tw`underline`}
-	}
-	color: #3289a1;
-`
-
-export default () => {
+export default function App() {
 	return (
 		<>
 			<GlobalStyles />
 			<Global styles={globalStyle} />
-			<Home>
-				<Header>
-					<Logo src={logo} alt="logo" />
-					<Code>Bundle with rollup.js</Code>
-					<HomeLink href="https://reactjs.org" rel="noopener noreferrer">
+			<div tw="h-full grid place-items-center">
+				<header tw="flex-auto flex flex-col items-center justify-center font-size[calc(10px + 2vmin)]">
+					<img
+						src={logo}
+						alt="logo"
+						tw="pointer-events-none"
+						css={css`
+							height: 40vmin;
+							animation: ${spin} 60s linear infinite;
+						`}
+					/>
+					<code tw="text-indigo-400">Bundle with rollup.js</code>
+					<a
+						href="https://reactjs.org"
+						rel="noopener noreferrer"
+						tw="transition py-3 color[#3289a1] hover:(color[#02dddd])"
+					>
 						Learn React
-					</HomeLink>
-				</Header>
-			</Home>
+					</a>
+				</header>
+			</div>
 		</>
 	)
 }
